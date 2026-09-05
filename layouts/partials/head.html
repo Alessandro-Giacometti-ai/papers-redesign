@@ -14,6 +14,7 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta name="theme-color" content="#f5f6f4">
+<script>(function(){try{if(!sessionStorage.getItem("dv-intro")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("intro-pending");setTimeout(function(){document.documentElement.classList.remove("intro-pending")},3000)}}catch(e){}})();</script>
 <link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | relURL }}">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
@@ -28,6 +29,9 @@
 {{- $js := resources.Get "js/regimes.js" | resources.Minify | fingerprint }}
 <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- end }}
+{{- $sep := ";" | resources.FromString "js/sep.js" }}
+{{- $site := slice (resources.Get "js/vendor/lenis.min.js") $sep (resources.Get "js/site.js" | resources.Minify) | resources.Concat "js/site.js" | fingerprint }}
+<script defer src="{{ $site.RelPermalink }}" integrity="{{ $site.Data.Integrity }}" crossorigin="anonymous"></script>
 {{- with .OutputFormats.Get "rss" }}
 <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
 {{- end }}

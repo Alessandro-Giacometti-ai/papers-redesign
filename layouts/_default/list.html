@@ -7,7 +7,7 @@
 
 <section class="section-head wrap">
   <div class="section-title">
-    <h1>{{ .Title }}</h1>
+    <h1 data-pressure>{{ .Title }}</h1>
     <p class="section-count mono">{{ len $pages }} {{ if eq (len $pages) 1 }}entry{{ else }}entries{{ end }}{{ if $isPapers }} · SSRN{{ end }}{{ if $isProjects }} · GitHub{{ end }}</p>
   </div>
   <div class="section-desc">
@@ -26,7 +26,8 @@
 <section class="wrap prose section-content">{{ . }}</section>
 {{- end }}
 
-<section class="wrap entries" aria-label="{{ .Title }}">
+<section class="slab" aria-label="{{ .Title }}">
+<div class="wrap entries">
   <div class="entries-head mono" aria-hidden="true">
     <span>{{ if $isPapers }}Venue · Date · Language{{ else if $isProjects }}Repository · Date{{ else }}Date{{ end }}</span>
     <span>Title and summary</span>
@@ -34,7 +35,7 @@
   </div>
   {{- range $pages }}
   {{- $p := . }}
-  <article class="entry">
+  <article class="entry" data-reveal>
     <div class="entry-meta mono">
       {{- with .Params.ssrn }}<span class="meta-line"><span class="meta-key">SSRN</span> {{ . }}</span>{{ end }}
       {{- with .Params.repo }}<span class="meta-line"><span class="meta-key">Code</span> {{ replace . "https://github.com/" "" }}</span>{{ end }}
@@ -56,5 +57,6 @@
     </ul>
   </article>
   {{- end }}
+</div>
 </section>
 {{- end }}

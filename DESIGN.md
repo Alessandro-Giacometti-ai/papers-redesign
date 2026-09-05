@@ -39,3 +39,17 @@ Visual system of this site, recorded from the built pages. Direction: a backtest
 - All facts come from front matter or markdown; the chart is labelled as synthetic.
 - New papers need `ssrn`, `language`, optional `alternate` and `project` in front matter.
 - New projects need `repo`, `keyResult`, optional `papers`.
+
+## Motion (added 05.09.2026)
+- Intro, once per session (`sessionStorage` key `dv-intro`): the synthetic path draws itself
+  full-screen with a day counter, the name unfolds from condensed to normal width, then the
+  chart flies into its slot on the page. 2.4 s total; `?introspeed=N` slows it for review.
+  Skipped entirely under `prefers-reduced-motion`.
+- Reactive display type on `[data-pressure]` headings: characters near the pointer widen
+  (wdth 96 to 125) and embolden (wght 700 to 900), eased back at rest.
+- Sticky chart on papers and home (`.regimes.is-sticky`): the list slab slides over it while
+  the chart panel sinks, scales to 0.95 and fades to 0.4. Off below 1000 px.
+- Staggered entrances on `[data-reveal]` rows (IntersectionObserver, once).
+- Inertia scroll via Lenis 1.3.26 (vendored, MIT), only with a fine pointer and no
+  reduced-motion preference. Anchor links go through `lenis.scrollTo`.
+- The in-app Claude browser reports reduced motion; verify motion in Playwright or a normal browser.

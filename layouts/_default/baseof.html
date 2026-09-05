@@ -3,7 +3,7 @@
 <head>
 {{- partial "head.html" . }}
 </head>
-<body class="{{ if .IsHome }}home{{ else }}{{ .Section }}{{ end }} kind-{{ .Kind }}">
+<body class="{{ if .IsHome }}home{{ else }}{{ .Section }}{{ end }} kind-{{ .Kind }}" data-site="{{ site.Title }}">
 <!--
 THESIS: A research site set like a backtest tearsheet: papers are report rows with a
 measured meta strip, and the first viewport demonstrates the author's own mechanism

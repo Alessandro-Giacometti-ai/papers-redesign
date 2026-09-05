@@ -271,4 +271,5 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!animating) draw(current, null); });
   draw(current, null);
   stats(current, 'original');
+  window.__dvRegimes = { pts: views.original.pts, segs: views.original.segs.map(function (s) { return { idx: s.idx, n: s.rets.length }; }), fills: FILLS, total: totalDays };
 })();

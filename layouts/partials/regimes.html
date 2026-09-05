@@ -1,4 +1,4 @@
-<section class="regimes" aria-labelledby="regimes-title">
+<section class="regimes{{ if or .IsHome (eq .Section "papers") }} is-sticky{{ end }}" aria-labelledby="regimes-title">
   <div class="wrap regimes-head">
     <div>
       <h2 id="regimes-title">Why resampling has to respect regimes</h2>
