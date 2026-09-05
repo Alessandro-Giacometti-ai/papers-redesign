@@ -66,8 +66,6 @@ params:
           url: https://scholar.google.com/citations?view_op=list_works&hl=en&user=bLv4KQgAAAAJ
         - name: Discord
           url: https://discord.com/users/1007581424167161857
-        - name: LinkedIn
-          url: https://www.linkedin.com/in/davidv/
 
     assets:
         disableScrollBarStyle: true
