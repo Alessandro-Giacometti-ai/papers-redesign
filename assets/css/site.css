@@ -228,6 +228,11 @@ html.intro-pending::before { content: ""; position: fixed; inset: 0; background:
 .key-result .label { color: var(--red); margin: 0; padding-top: 4px; }
 .key-result p { font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.01em; max-width: 52ch; }
 .single-body { display: grid; grid-template-columns: 8fr 3fr; gap: 48px; padding: 40px 0 96px; }
+.single-body.no-side { grid-template-columns: 1fr; }
+.single-body.no-side .single-side { display: none; }
+.single-body.no-side .prose > :not(.cert-grid) { max-width: var(--measure); }
+.single-head + .single-body.no-side { padding-top: 48px; }
+.prose .cert-grid { margin: 0 0 2rem; }
 .single-side { padding-top: 6px; }
 .single-side .label { margin-top: 28px; }
 .single-side .label:first-child { margin-top: 0; }

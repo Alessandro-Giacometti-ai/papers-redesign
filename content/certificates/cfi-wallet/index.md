@@ -2,6 +2,10 @@
 title: "CFI Certificates"
 description: "Corporate Finance Institute credentials earned by David Vossebürger — click a certificate to verify on credential.net."
 date: 2026-09-05
+provider: "Corporate Finance Institute"
+count: 19
+unit: "credentials"
+summary: "Nineteen Corporate Finance Institute credentials, May to September 2026, each verifiable on credential.net."
 ---
 
 <style>

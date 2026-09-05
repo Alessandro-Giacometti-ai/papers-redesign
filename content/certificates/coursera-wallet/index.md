@@ -2,6 +2,10 @@
 title: "Coursera Certificates"
 description: "Coursera certificates earned by David Vossebürger — click to verify on Coursera."
 date: 2026-09-05
+provider: "Coursera"
+count: 6
+unit: "certificates"
+summary: "Six Coursera certificates, among them Yale University, Stanford Online and Duke University, each verifiable on Coursera."
 ---
 
 <style>

@@ -10,6 +10,8 @@
       {{- if not .Date.IsZero }}<div><dt>Date</dt><dd>{{ .Date | time.Format site.Params.DateFormat }}</dd></div>{{ end }}
       {{- with .Params.author }}<div><dt>Author</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
       {{- with .Params.language }}<div><dt>Language</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with .Params.provider }}<div><dt>Provider</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with .Params.count }}<div><dt>Count</dt><dd>{{ . }} {{ $.Params.unit | default "entries" }}</dd></div>{{ end }}
       {{- with .Params.ssrn }}<div><dt>SSRN</dt><dd><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id={{ . }}" target="_blank" rel="noopener">{{ . }}</a></dd></div>{{ end }}
       {{- with .Params.repo }}<div><dt>Code</dt><dd><a href="{{ . }}" target="_blank" rel="noopener">{{ replace . "https://github.com/" "" }}</a></dd></div>{{ end }}
       {{- with .Params.alternate }}{{ with site.GetPage . }}<div><dt>Also in</dt><dd><a href="{{ .RelPermalink }}">{{ .Params.language }}</a></dd></div>{{ end }}{{ end }}
@@ -33,7 +35,9 @@
   </section>
   {{- end }}
 
-  <div class="wrap single-body" data-reveal>
+  {{- $tags := .GetTerms "tags" }}
+  {{- $related := .Site.RegularPages.Related . | first 3 }}
+  <div class="wrap single-body{{ if and (not $tags) (not $related) }} no-side{{ end }}" data-reveal>
     <div class="prose">
       {{ .Content }}
       {{- if $isPaper }}
@@ -50,13 +54,12 @@
       {{- end }}
     </div>
     <aside class="single-side">
-      {{- with (.GetTerms "tags") }}
+      {{- with $tags }}
       <span class="label">Tags</span>
       <ul class="entry-tags plain">
         {{- range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
       </ul>
       {{- end }}
-      {{- $related := .Site.RegularPages.Related . | first 3 }}
       {{- with $related }}
       <span class="label">Related</span>
       <ul class="plain related">

@@ -22,16 +22,17 @@
 {{- partial "regimes.html" . }}
 {{- end }}
 
-{{- with .Content }}
+{{- if not $pages }}{{ with .Content }}
 <section class="wrap prose section-content">{{ . }}</section>
-{{- end }}
+{{- end }}{{ end }}
+{{- $hasTags := false }}{{ range $pages }}{{ if .GetTerms "tags" }}{{ $hasTags = true }}{{ end }}{{ end }}
 
 <section class="slab" aria-label="{{ .Title }}">
 <div class="wrap entries">
   <div class="entries-head mono" aria-hidden="true">
-    <span>{{ if $isPapers }}Venue · Date · Language{{ else if $isProjects }}Repository · Date{{ else }}Date{{ end }}</span>
+    <span>{{ if $isPapers }}Venue · Date · Language{{ else if $isProjects }}Repository · Date{{ else }}Provider · Date{{ end }}</span>
     <span>Title and summary</span>
-    <span>Tags</span>
+    <span>{{ if $hasTags }}Tags{{ end }}</span>
   </div>
   {{- range $pages }}
   {{- $p := . }}
@@ -39,15 +40,17 @@
     <div class="entry-meta mono">
       {{- with .Params.ssrn }}<span class="meta-line"><span class="meta-key">SSRN</span> {{ . }}</span>{{ end }}
       {{- with .Params.repo }}<span class="meta-line"><span class="meta-key">Code</span> {{ replace . "https://github.com/" "" }}</span>{{ end }}
+      {{- with .Params.provider }}<span class="meta-line"><span class="meta-key">From</span> {{ . }}</span>{{ end }}
+      {{- with .Params.count }}<span class="meta-line"><span class="meta-key">Count</span> {{ . }} {{ $p.Params.unit | default "entries" }}</span>{{ end }}
       {{- if not .Date.IsZero }}<span class="meta-line"><span class="meta-key">Date</span> {{ .Date | time.Format site.Params.DateFormat }}</span>{{ end }}
       {{- with .Params.language }}<span class="meta-line"><span class="meta-key">Lang</span> {{ . }}</span>{{ end }}
     </div>
     <div class="entry-body">
       <h2 class="entry-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       {{- with .Params.keyResult }}<p class="entry-result"><span class="meta-key">Key result</span> {{ . }}</p>{{ end }}
-      <p class="entry-summary">{{ .Summary | plainify | htmlUnescape }}</p>
+      <p class="entry-summary">{{ .Params.summary | default .Description | default .Summary | plainify | htmlUnescape }}</p>
       <div class="entry-actions">
-        <a class="action" href="{{ .RelPermalink }}">{{ if $isPapers }}Abstract and citation{{ else if $isProjects }}Project page{{ else }}Open{{ end }} {{ partial "icons.html" "arrow" }}</a>
+        <a class="action" href="{{ .RelPermalink }}">{{ if $isPapers }}Abstract and citation{{ else if $isProjects }}Project page{{ else if .Params.count }}All {{ .Params.count }} {{ .Params.unit | default "entries" }}{{ else }}Open{{ end }} {{ partial "icons.html" "arrow" }}</a>
         {{- with .Params.editPost }}{{ with .URL }}<a class="action" href="{{ . }}" target="_blank" rel="noopener">{{ $p.Params.editPost.Text | default "Source" }} {{ partial "icons.html" "external" }}</a>{{ end }}{{ end }}
         {{- with .Params.alternate }}<a class="action" href="{{ . | relURL }}">{{ $p.Params.alternateLabel | default "Other language" }} {{ partial "icons.html" "arrow" }}</a>{{ end }}
       </div>
