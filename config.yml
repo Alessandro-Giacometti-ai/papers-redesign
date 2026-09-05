@@ -49,7 +49,6 @@ params:
     profileMode:
           enabled: true
           title: David Vossebürger
-          subtitle: "Quantitative macro and FX research. Replace this placeholder with a short bio."
           imageUrl: picture.svg
           imageWidth: 160
           imageHeight: 160
