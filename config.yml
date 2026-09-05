@@ -1,0 +1,92 @@
+baseURL: "https://davidv.github.io/"
+title: David Vossebürger
+theme: PaperMod
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+pagination:
+  pagerSize: 20
+
+taxonomies:
+    tag: tags
+
+menu:
+    main:
+        - name: Papers
+          url: papers/
+          weight: 2
+        - name: Projects
+          url: projects/
+          weight: 3
+        - name: Certificates
+          url: certificates/
+          weight: 4
+
+params:
+    description: "This website hosts David Vossebürger's research papers, projects, certificates, course materials, data, and contact information."
+    author: David Vossebürger
+    # googleAnalyticsID: G-XXXXX
+    DateFormat: January 2006
+    defaultTheme: light
+    hideFooter: false
+    disableThemeToggle: true
+    ShowShareButtons: false
+    ShowReadingTime: false
+    disableSpecial1stPost: true
+    disableAnchoredHeadings: true
+    ShowPostNavLinks: false
+    ShowBreadCrumbs: false
+    ShowCodeCopyButtons: true
+    ShowAllPagesInArchive: false
+    MainSections: [books, courses, papers, data, projects, certificates]
+    ShowToc: false
+    disableScrollToTop: true
+    TocOpen: true
+    ShowWordCount: false
+    UseHugoToc: true
+    comments: false
+    math: true
+    profileMode:
+          enabled: true
+          title: David Vossebürger
+          subtitle: "Quantitative macro and FX research. Replace this placeholder with a short bio."
+          imageUrl: picture.svg
+          imageWidth: 160
+          imageHeight: 160
+          buttons: []
+
+    socialIcons:
+        - name: Email
+          url: mailto:david.vossebuerger@proton.me
+        - name: GitHub
+          url: https://github.com/DavidVossebuerger
+        - name: SSRN
+          url: https://ssrn.com/author=10722256
+        - name: Google Scholar
+          url: https://scholar.google.com/citations?view_op=list_works&hl=en&user=bLv4KQgAAAAJ
+        - name: Discord
+          url: https://discord.com/users/1007581424167161857
+        - name: LinkedIn
+          url: https://www.linkedin.com/in/davidv/
+
+    assets:
+        disableScrollBarStyle: true
+    cover:
+        hiddenInList: false
+        hiddenInSingle: true
+    label:
+      text: David Vossebürger
+      icon: favicon.ico
+      iconHeight: 18
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+    highlight:
+        guessSyntax: true
+        style: autumn 
+    tableOfContents:
+        endLevel: 2
+        ordered: false
+        startLevel: 2

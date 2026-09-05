@@ -1,0 +1,24 @@
+# Hugo build artifacts
+/public/
+/resources/
+.hugo_build.lock
+
+# Local dev caches
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+
+# Sensitive — never commit
+*.env
+.env.*
+*.pem
+*.key
+secrets.yaml
