@@ -206,19 +206,43 @@
     ctx.textAlign = 'left';
   }
 
+  var statEls = {
+    view: document.getElementById('stat-view'), ret: document.getElementById('stat-return'),
+    dd: document.getElementById('stat-dd'), vol: document.getElementById('stat-vol'), sharpe: document.getElementById('stat-sharpe')
+  };
+  var VIEW_NAMES = { original: 'original', iid: 'IID bootstrap', regime: 'regime bootstrap' };
+  function stats(view, method) {
+    if (!statEls.view) return;
+    var pts = view.pts, n = pts.length - 1, sum = 0, sq = 0, peak = -Infinity, dd = 0;
+    for (var i = 1; i <= n; i++) {
+      var r = pts[i] - pts[i - 1]; sum += r; sq += r * r;
+      if (pts[i] > peak) peak = pts[i];
+      if (peak - pts[i] > dd) dd = peak - pts[i];
+    }
+    var mean = sum / n, sd = Math.sqrt(Math.max(sq / n - mean * mean, 1e-12));
+    var pct = function (x) { return (x >= 0 ? '+' : '') + (x * 100).toFixed(1) + '%'; };
+    statEls.view.textContent = VIEW_NAMES[method];
+    statEls.ret.textContent = pct(pts[n]);
+    statEls.dd.textContent = '-' + (dd * 100).toFixed(1) + '%';
+    statEls.vol.textContent = (sd * Math.sqrt(252) * 100).toFixed(1) + '%';
+    statEls.sharpe.textContent = (mean / sd * Math.sqrt(252)).toFixed(2);
+  }
+  var currentMethod = 'original';
+
   function frame(now) {
     if (!animating) return;
     var p = Math.min(1, (now - t0) / DUR);
     draw(current, ease(p));
     if (p < 1) requestAnimationFrame(frame);
-    else { animating = false; previous = null; draw(current, null); }
+    else { animating = false; previous = null; draw(current, null); stats(current, currentMethod); }
   }
 
   var LABELS = { original: 'original calendar order', iid: 'IID bootstrap, days resampled one by one', regime: 'regime bootstrap, whole regime blocks resampled' };
   function show(method) {
     var next = method === 'original' ? views.original : makeView(method);
     canvas.setAttribute('aria-label', 'Line chart of a synthetic exchange-rate path with shaded regime bands, currently showing the ' + LABELS[method] + '.');
-    if (reduced) { current = next; previous = null; draw(current, null); return; }
+    currentMethod = method;
+    if (reduced) { current = next; previous = null; draw(current, null); stats(current, method); return; }
     previous = current; current = next; t0 = performance.now(); animating = true;
     requestAnimationFrame(frame);
   }
@@ -246,4 +270,5 @@
   if (ro) ro.observe(canvas); else window.addEventListener('resize', function () { if (!animating) draw(current, null); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!animating) draw(current, null); });
   draw(current, null);
+  stats(current, 'original');
 })();

@@ -10,12 +10,21 @@
       <button type="button" class="button" data-method="regime" aria-pressed="false">Regime bootstrap</button>
     </div>
   </div>
-  <div class="regimes-canvas-wrap">
-    <canvas id="regimes-canvas" class="regimes-canvas" role="img" aria-label="Line chart of a synthetic exchange-rate path with shaded regime bands. The buttons resample the path either day by day or regime block by regime block."></canvas>
-    <noscript><p class="wrap note">The chart needs JavaScript.</p></noscript>
-  </div>
-  <div class="wrap regimes-foot mono">
-    <ul class="plain regimes-legend" id="regimes-legend" aria-label="Regime names"></ul>
-    <p class="regimes-note">Illustration on a synthetic random path, not market data. Regime names follow the EUR/USD taxonomy of the <a href="{{ "projects/mc-regime/" | relURL }}">MC-Regime</a> project.</p>
+  <div class="regimes-panel">
+    <div class="regimes-canvas-wrap">
+      <canvas id="regimes-canvas" class="regimes-canvas" role="img" aria-label="Line chart of a synthetic exchange-rate path with shaded regime bands, currently showing the original calendar order."></canvas>
+      <noscript><p class="note">The chart needs JavaScript.</p></noscript>
+      <dl class="regimes-stats mono" id="regimes-stats" aria-live="polite">
+        <div class="stat-view"><dt>Path</dt><dd id="stat-view">original</dd></div>
+        <div><dt>Return</dt><dd id="stat-return">–</dd></div>
+        <div><dt>Max drawdown</dt><dd id="stat-dd">–</dd></div>
+        <div><dt>Volatility</dt><dd id="stat-vol">–</dd></div>
+        <div><dt>Sharpe</dt><dd id="stat-sharpe">–</dd></div>
+      </dl>
+    </div>
+    <div class="regimes-foot mono">
+      <ul class="plain regimes-legend" id="regimes-legend" aria-label="Regime names"></ul>
+      <p class="regimes-note">Illustration on a synthetic random path, not market data. Statistics describe the path on screen, annualised over 252 days. Regime names follow the EUR/USD taxonomy of the <a href="{{ "projects/mc-regime/" | relURL }}">MC-Regime</a> project.</p>
+    </div>
   </div>
 </section>
