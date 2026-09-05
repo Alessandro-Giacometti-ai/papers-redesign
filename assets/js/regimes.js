@@ -197,8 +197,12 @@
     var lastY = ys(pts[pts.length - 1]);
     ctx.fillStyle = '#1749d6';
     ctx.fillRect(x1 - 3, lastY - 3, 6, 6);
-    ctx.font = mono; ctx.fillStyle = '#1749d6'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-    ctx.fillText((pts[pts.length - 1] * 100).toFixed(1) + '%', x1 - 10, lastY);
+    var endLabel = (pts[pts.length - 1] * 100).toFixed(1) + '%';
+    ctx.font = mono; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.lineWidth = 4; ctx.strokeStyle = '#f5f6f4'; ctx.lineJoin = 'round';
+    ctx.strokeText(endLabel, x1 - 10, lastY - 12);
+    ctx.fillStyle = '#1749d6';
+    ctx.fillText(endLabel, x1 - 10, lastY - 12);
     ctx.textAlign = 'left';
   }
 
