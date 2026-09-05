@@ -33,9 +33,10 @@ document.querySelectorAll('pre > code').forEach(function (code) {
   var b = document.createElement('button');
   b.className = 'copy-code'; b.type = 'button'; b.textContent = 'Copy';
   b.addEventListener('click', function () {
+    if (!navigator.clipboard) { b.textContent = 'Select and copy'; return; }
     navigator.clipboard.writeText(code.textContent).then(function () {
       b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600);
-    });
+    }).catch(function () { b.textContent = 'Copy failed'; });
   });
   (pre.parentNode.classList.contains('highlight') ? pre.parentNode : pre).appendChild(b);
 });
@@ -43,10 +44,12 @@ document.querySelectorAll('[data-copy]').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var t = document.getElementById(btn.getAttribute('data-copy'));
     if (!t) return;
+    var old = btn.innerHTML;
+    if (!navigator.clipboard) { btn.textContent = 'Select the text below'; return; }
     navigator.clipboard.writeText(t.innerText.trim()).then(function () {
-      var old = btn.innerHTML; btn.textContent = 'Copied';
+      btn.textContent = 'Copied';
       setTimeout(function () { btn.innerHTML = old; }, 1600);
-    });
+    }).catch(function () { btn.textContent = 'Copy failed'; });
   });
 });
 </script>

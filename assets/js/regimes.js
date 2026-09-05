@@ -214,8 +214,10 @@
     else { animating = false; previous = null; draw(current, null); }
   }
 
+  var LABELS = { original: 'original calendar order', iid: 'IID bootstrap, days resampled one by one', regime: 'regime bootstrap, whole regime blocks resampled' };
   function show(method) {
     var next = method === 'original' ? views.original : makeView(method);
+    canvas.setAttribute('aria-label', 'Line chart of a synthetic exchange-rate path with shaded regime bands, currently showing the ' + LABELS[method] + '.');
     if (reduced) { current = next; previous = null; draw(current, null); return; }
     previous = current; current = next; t0 = performance.now(); animating = true;
     requestAnimationFrame(frame);
