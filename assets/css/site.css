@@ -359,7 +359,9 @@ html.intro-pending::before { content: ""; position: fixed; inset: 0; background:
   .regimes-canvas-wrap { padding: 6px 6px 0; }
   .regimes-foot { padding: 12px 12px 14px; }
 }
+.button.is-done { background: var(--blue); border-color: var(--blue); color: #fff; }
 @media print {
+  [data-reveal], .hero-name h1, .hero-name .lede, .hero-index, .section-title, .section-desc, .single-head { opacity: 1 !important; transform: none !important; }
   .site-header, .site-footer, .regimes-controls, .single-actions, .copy-code { display: none; }
   body { background: #fff; }
 }

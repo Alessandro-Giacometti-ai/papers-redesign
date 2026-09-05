@@ -44,12 +44,22 @@ document.querySelectorAll('[data-copy]').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var t = document.getElementById(btn.getAttribute('data-copy'));
     if (!t) return;
-    var old = btn.innerHTML;
-    if (!navigator.clipboard) { btn.textContent = 'Select the text below'; return; }
-    navigator.clipboard.writeText(t.innerText.trim()).then(function () {
-      btn.textContent = 'Copied';
-      setTimeout(function () { btn.innerHTML = old; }, 1600);
-    }).catch(function () { btn.textContent = 'Copy failed'; });
+    var old = btn.innerHTML, text = t.innerText.trim();
+    function done(ok) {
+      btn.textContent = ok ? 'Copied' : 'Copy failed, text selected';
+      btn.classList.add('is-done');
+      setTimeout(function () { btn.innerHTML = old; btn.classList.remove('is-done'); }, 1800);
+    }
+    function legacy() {
+      var range = document.createRange(); range.selectNodeContents(t);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      if (ok) sel.removeAllRanges();
+      done(ok);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }).catch(legacy);
+    } else { legacy(); }
   });
 });
 </script>

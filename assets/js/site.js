@@ -203,6 +203,9 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     revealables.forEach(function (el, i) { el.style.setProperty('--i', String(i % 8)); io.observe(el); });
+    /* Safety net: whatever the observer missed (print, full-page capture, odd scroll containers) shows after 2.5 s. */
+    setTimeout(function () { revealables.forEach(function (el) { el.classList.add('in'); }); }, 2500);
+    window.addEventListener('beforeprint', function () { revealables.forEach(function (el) { el.classList.add('in'); }); });
   } else {
     revealables.forEach(function (el) { el.classList.add('in'); });
   }
