@@ -1,4 +1,5 @@
 ---
 title: "Papers"
-description: "Preprints and working papers by David Vossebürger — FX fair-value models and rule-based FX strategy evaluation."
+description: "Preprints and working papers on FX fair-value models and rule-based FX strategy evaluation."
+regimes: true
 ---

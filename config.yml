@@ -1,6 +1,5 @@
 baseURL: "https://davidvossebuerger.github.io/"
 title: David Vossebürger
-theme: PaperMod
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
@@ -9,6 +8,14 @@ pagination:
 
 taxonomies:
     tag: tags
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+    style: github
 
 menu:
     main:
@@ -23,67 +30,24 @@ menu:
           weight: 4
 
 params:
-    description: "This website hosts David Vossebürger's research papers, projects, certificates, course materials, data, and contact information."
+    description: "Research site of David Vossebürger: working papers on FX fair-value models and rule-based strategy evaluation, open-source quant projects, and certificates."
     author: David Vossebürger
-    # googleAnalyticsID: G-XXXXX
     DateFormat: January 2006
-    defaultTheme: light
-    hideFooter: false
-    disableThemeToggle: true
-    ShowShareButtons: false
-    ShowReadingTime: false
-    disableSpecial1stPost: true
-    disableAnchoredHeadings: true
-    ShowPostNavLinks: false
-    ShowBreadCrumbs: false
-    ShowCodeCopyButtons: true
-    ShowAllPagesInArchive: false
-    MainSections: [books, courses, papers, data, projects, certificates]
-    ShowToc: false
-    disableScrollToTop: true
-    TocOpen: true
-    ShowWordCount: false
-    UseHugoToc: true
-    comments: false
     math: true
-    profileMode:
-          enabled: true
-          title: David Vossebürger
-          imageUrl: picture.svg
-          imageWidth: 160
-          imageHeight: 160
-          buttons: []
-
-    socialIcons:
+    tagline: "Rule-based evaluation of FX strategies and regime-preserving bootstrap inference for fair-value models."
+    links:
         - name: Email
           url: mailto:david.vossebuerger@proton.me
+          icon: email
         - name: GitHub
           url: https://github.com/DavidVossebuerger
+          icon: github
         - name: SSRN
           url: https://ssrn.com/author=10722256
+          icon: ssrn
         - name: Google Scholar
           url: https://scholar.google.com/citations?view_op=list_works&hl=en&user=bLv4KQgAAAAJ
+          icon: scholar
         - name: Discord
           url: https://discord.com/users/1007581424167161857
-
-    assets:
-        disableScrollBarStyle: true
-    cover:
-        hiddenInList: false
-        hiddenInSingle: true
-    label:
-      text: David Vossebürger
-      icon: favicon.ico
-      iconHeight: 18
-
-markup:
-    goldmark:
-        renderer:
-            unsafe: true
-    highlight:
-        guessSyntax: true
-        style: autumn 
-    tableOfContents:
-        endLevel: 2
-        ordered: false
-        startLevel: 2
+          icon: discord

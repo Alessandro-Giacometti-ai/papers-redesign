@@ -5,6 +5,9 @@ tags: ["FX", "bootstrap", "fair-value", "macro"]
 author: ["David Vossebürger"]
 description: "Bootstrap methodology that preserves exchange-rate regime structure when evaluating fair-value models."
 summary: "A bootstrap methodology that preserves exchange-rate regime structure, for evaluating fair-value models of FX."
+language: "English"
+ssrn: "6890880"
+project: "/projects/mc-regime/"
 editPost:
     URL: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6890880"
     Text: "SSRN 6890880"

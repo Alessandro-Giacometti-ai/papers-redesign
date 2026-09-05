@@ -1,0 +1,44 @@
+{{- define "main" }}
+{{- $papers := where site.RegularPages "Section" "papers" }}
+{{- $projects := where site.RegularPages "Section" "projects" }}
+{{- $certs := where site.RegularPages "Section" "certificates" }}
+<section class="hero wrap">
+  <div class="hero-name">
+    <h1>{{ site.Title }}</h1>
+    <p class="lede">{{ site.Params.tagline }}</p>
+  </div>
+  <div class="hero-index mono">
+    <a href="{{ "papers/" | relURL }}"><span>Papers</span><span>{{ len $papers }}</span></a>
+    <a href="{{ "projects/" | relURL }}"><span>Projects</span><span>{{ len $projects }}</span></a>
+    <a href="{{ "certificates/" | relURL }}"><span>Certificates</span><span>25</span></a>
+  </div>
+</section>
+
+{{- partial "regimes.html" . }}
+
+<section class="wrap home-latest">
+  <div class="home-col">
+    <h2>Papers</h2>
+    <ul class="plain home-list">
+      {{- range $papers.ByDate.Reverse }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="mono">{{ with .Params.ssrn }}SSRN {{ . }} · {{ end }}{{ .Params.language }}</span>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+  <div class="home-col">
+    <h2>Projects</h2>
+    <ul class="plain home-list">
+      {{- range $projects.ByDate.Reverse }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="mono">{{ with .Params.repo }}{{ replace . "https://github.com/" "" }}{{ end }}</span>
+        {{- with .Params.keyResult }}<p>{{ . }}</p>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+{{- end }}

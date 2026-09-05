@@ -1,0 +1,21 @@
+<section class="regimes" aria-labelledby="regimes-title">
+  <div class="wrap regimes-head">
+    <div>
+      <h2 id="regimes-title">Why resampling has to respect regimes</h2>
+      <p>A synthetic FX path under eight macro regimes. An IID bootstrap shuffles single days and dissolves the regime structure; a regime bootstrap resamples whole blocks and keeps it. The Sharpe ratio you infer from the two is not the same.</p>
+    </div>
+    <div class="regimes-controls" role="group" aria-label="Resampling method">
+      <button type="button" class="button" data-method="original" aria-pressed="true">Original</button>
+      <button type="button" class="button" data-method="iid" aria-pressed="false">IID bootstrap</button>
+      <button type="button" class="button" data-method="regime" aria-pressed="false">Regime bootstrap</button>
+    </div>
+  </div>
+  <div class="regimes-canvas-wrap">
+    <canvas id="regimes-canvas" class="regimes-canvas" role="img" aria-label="Line chart of a synthetic exchange-rate path with shaded regime bands. The buttons resample the path either day by day or regime block by regime block."></canvas>
+    <noscript><p class="wrap note">The chart needs JavaScript.</p></noscript>
+  </div>
+  <div class="wrap regimes-foot mono">
+    <ul class="plain regimes-legend" id="regimes-legend" aria-label="Regime names"></ul>
+    <p class="regimes-note">Illustration on a synthetic random path, not market data. Regime names follow the EUR/USD taxonomy of the <a href="{{ "projects/mc-regime/" | relURL }}">MC-Regime</a> project.</p>
+  </div>
+</section>

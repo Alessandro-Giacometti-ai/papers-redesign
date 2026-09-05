@@ -1,7 +1,12 @@
-{{ define "title" }}404{{ end }}
-{{ define "main" }}
-  <div class="not-found">
+{{- define "main" }}
+<section class="section-head wrap">
+  <div class="section-title">
     <h1>Page not found</h1>
-    <p>Sorry, the requested page could not be found.</p>
+    <p class="section-count mono">HTTP 404</p>
   </div>
-{{ end }}
+  <div class="section-desc">
+    <p class="lede">The address does not resolve to a page on this site.</p>
+    <p class="note"><a class="action" href="{{ "/" | relURL }}">Back to the start {{ partial "icons.html" "arrow" }}</a></p>
+  </div>
+</section>
+{{- end }}

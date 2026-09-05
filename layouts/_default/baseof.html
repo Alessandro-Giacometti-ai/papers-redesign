@@ -1,26 +1,28 @@
-{{- if lt hugo.Version "0.147.2" }}
-{{- errorf "=> hugo v0.147.2 or greater is required for hugo-PaperMod to build " }}
-{{- end -}}
-
 <!DOCTYPE html>
-<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
-
+<html lang="{{ site.Language.Lang }}">
 <head>
-    {{- partial "head.html" . }}
+{{- partial "head.html" . }}
 </head>
-
-<body class="
-{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
-{{- print "list" -}}
-{{- end -}}
-{{- if eq site.Params.defaultTheme `dark` -}}
-{{- print " dark" }}
-{{- end -}}
-" id="top">
-    {{- partialCached "header.html" . .Page -}}
-    <main class="main">
-        {{- block "main" . }}{{ end }}
-    </main>
-    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+<body class="{{ if .IsHome }}home{{ else }}{{ .Section }}{{ end }} kind-{{ .Kind }}">
+<!--
+THESIS: A research site set like a backtest tearsheet: papers are report rows with a
+measured meta strip, and the first viewport demonstrates the author's own mechanism
+(regime-preserving bootstrap vs IID) instead of listing cards on a cream page.
+OWN-WORLD: report paper #f5f6f4, ink #0f1419, one drawdown blue #1749d6, one loss red
+#c8321f, eight muted regime fills; Archivo (width axis) for all text, Fragment Mono for
+numbers; hairline rules at 1px, no radius, no shadows.
+STORY: a quant reader sees at once what the work is about, which papers exist, where to
+download them, and that the results are reproducible.
+FIRST VIEWPORT: header rule, title block left with the section description right, then a
+full-bleed canvas of a synthetic FX path under eight regime bands with a resample control.
+FORM: tearsheet, candidate 4 of the grounded list, seed key 08b092de.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+<a class="skip" href="#main">Skip to content</a>
+{{- partial "header.html" . }}
+<main id="main" class="main">
+{{- block "main" . }}{{ end }}
+</main>
+{{- partial "footer.html" . }}
 </body>
 </html>

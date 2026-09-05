@@ -1,60 +1,69 @@
 {{- define "main" }}
-
-<article class="post-single">
-  <header class="post-header">
-    {{ partial "breadcrumbs.html" . }}
-    <h1 class="post-title entry-hint-parent">
-      {{ .Title }}
-      {{- if .Draft }}
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="42" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-      {{- end }}
-    </h1>
-    {{- if not (.Param "hideMeta") }}
-    <div class="post-meta">
-      {{- partial "post_meta.html" . -}}
-      {{- partial "translation_list.html" . -}}
-      {{- partial "edit_post.html" . -}}
-      {{- partial "post_canonical.html" . -}}
+{{- $isPaper := eq .Section "papers" }}
+<article class="single">
+  <header class="single-head wrap">
+    <div class="single-title">
+      <p class="crumb mono"><a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a></p>
+      <h1>{{ .Title }}</h1>
     </div>
-    {{- end }}
-  </header>
-  {{- $isHidden := (.Param "cover.hiddenInSingle") | default (.Param "cover.hidden") | default false }}
-  {{- partial "cover.html" (dict "cxt" . "IsSingle" true "isHidden" $isHidden) }}
-  {{- if (.Param "ShowToc") }}
-  {{- partial "toc.html" . }}
-  {{- end }}
-
-  {{- if .Content }}
-  <div class="post-content">
-    {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
-  </div>
-  {{- end }}
-
-  <footer class="post-footer">
-    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-    <ul class="post-tags">
-      {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    <dl class="single-meta mono">
+      {{- if not .Date.IsZero }}<div><dt>Date</dt><dd>{{ .Date | time.Format site.Params.DateFormat }}</dd></div>{{ end }}
+      {{- with .Params.author }}<div><dt>Author</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
+      {{- with .Params.language }}<div><dt>Language</dt><dd>{{ . }}</dd></div>{{ end }}
+      {{- with .Params.ssrn }}<div><dt>SSRN</dt><dd><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id={{ . }}" target="_blank" rel="noopener">{{ . }}</a></dd></div>{{ end }}
+      {{- with .Params.repo }}<div><dt>Code</dt><dd><a href="{{ . }}" target="_blank" rel="noopener">{{ replace . "https://github.com/" "" }}</a></dd></div>{{ end }}
+      {{- with .Params.alternate }}{{ with site.GetPage . }}<div><dt>Also in</dt><dd><a href="{{ .RelPermalink }}">{{ .Params.language }}</a></dd></div>{{ end }}{{ end }}
+      {{- with .Params.project }}{{ with site.GetPage . }}<div><dt>Project</dt><dd><a href="{{ .RelPermalink }}">{{ .Title }}</a></dd></div>{{ end }}{{ end }}
+      {{- with .Params.papers }}<div><dt>Papers</dt><dd>{{ range $i, $p := . }}{{ with site.GetPage $p }}{{ if $i }}<br>{{ end }}<a href="{{ .RelPermalink }}">SSRN {{ .Params.ssrn }} · {{ .Params.language }}</a>{{ end }}{{ end }}</dd></div>{{ end }}
+    </dl>
+    <div class="single-actions">
+      {{- with .Params.editPost }}{{ with .URL }}
+      <a class="button primary" href="{{ . }}" target="_blank" rel="noopener">{{ if $isPaper }}Read on SSRN{{ else }}{{ $.Params.editPost.Text }}{{ end }} {{ partial "icons.html" "external" }}</a>
+      {{- end }}{{ end }}
+      {{- if $isPaper }}
+      <button class="button" type="button" data-copy="bibtex">Copy BibTeX {{ partial "icons.html" "copy" }}</button>
       {{- end }}
-    </ul>
-    {{- if (.Param "ShowPostNavLinks") }}
-    {{- partial "post_nav_links.html" . }}
-    {{- end }}
-    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
-    {{- partial "share_icons.html" . -}}
-    {{- end }}
-  </footer>
+    </div>
+  </header>
 
-  {{- if (.Param "comments") }}
-  {{- partial "comments.html" . }}
+  {{- with .Params.keyResult }}
+  <section class="wrap key-result">
+    <span class="label">Key result</span>
+    <p>{{ . }}</p>
+  </section>
   {{- end }}
-</article>
 
-{{- end }}{{/* end main */}}
+  <div class="wrap single-body">
+    <div class="prose">
+      {{ .Content }}
+      {{- if $isPaper }}
+      {{- $year := .Date.Format "2006" }}
+      {{- $key := printf "vossebuerger%s%s" $year (replace .File.ContentBaseName "-" "") }}
+      <h5>BibTeX</h5>
+      <pre class="bibtex" id="bibtex">@unpublished{ {{- $key -}},
+  author = { {{- delimit .Params.author " and " -}} },
+  title  = { {{- .Title -}} },
+  year   = { {{- $year -}} },
+  note   = {Available at SSRN {{ .Params.ssrn }}},
+  url    = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id={{ .Params.ssrn }}}
+}</pre>
+      {{- end }}
+    </div>
+    <aside class="single-side">
+      {{- with (.GetTerms "tags") }}
+      <span class="label">Tags</span>
+      <ul class="entry-tags plain">
+        {{- range . }}<li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+      </ul>
+      {{- end }}
+      {{- $related := .Site.RegularPages.Related . | first 3 }}
+      {{- with $related }}
+      <span class="label">Related</span>
+      <ul class="plain related">
+        {{- range . }}<li><a href="{{ .RelPermalink }}"><span class="mono">{{ .Section | title }}</span>{{ .Title }}</a></li>{{ end }}
+      </ul>
+      {{- end }}
+    </aside>
+  </div>
+</article>
+{{- end }}

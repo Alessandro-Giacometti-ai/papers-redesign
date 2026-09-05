@@ -1,19 +1,16 @@
 {{- define "main" }}
-
-<header class="page-header">
-</header>
-
-<ul class="terms-tags">
-    {{- $type := .Type }}
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
-    {{- $name := .Name }}
-    {{- $count := .Count }}
-    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
-    <li>
-        <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
-    </li>
+<section class="section-head wrap">
+  <div class="section-title">
+    <h1>{{ .Title }}</h1>
+    <p class="section-count mono">{{ len .Data.Terms }} terms</p>
+  </div>
+  <div class="section-desc"><p class="lede">Every tag used across papers and projects, with the number of entries it groups.</p></div>
+</section>
+<section class="wrap terms">
+  <ul class="plain term-list">
+    {{- range .Data.Terms.Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}<span class="mono">{{ .Count }}</span></a></li>
     {{- end }}
-    {{- end }}
-</ul>
-
+  </ul>
+</section>
 {{- end }}

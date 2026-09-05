@@ -5,6 +5,11 @@ tags: ["FX", "ICT", "PO3", "Backtesting", "Reproduzierbarkeit"]
 author: ["David Vossebürger"]
 description: "Reproduzierbare, regelbasierte Evaluierung von PO3-inspirierten ICT-Strategien auf Weekly-Profile- und Daily-Swing-Zeitrahmen."
 summary: "Reproduzierbare, regelbasierte Evaluierung von PO3-inspirierten ICT-Strategien mittels Weekly-Profile- und Daily-Swing-Framework."
+language: "Deutsch"
+ssrn: "6410578"
+alternate: "/papers/ict-rules-en/"
+alternateLabel: "English version"
+project: "/projects/po3-ict-backtesting/"
 editPost:
     URL: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6410578"
     Text: "SSRN 6410578"

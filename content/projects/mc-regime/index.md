@@ -5,6 +5,9 @@ tags: ["Python", "FX", "bootstrap", "BEER", "FEER", "PPP", "macro"]
 author: ["David Vossebürger"]
 description: "Methodology, metrics, and empirical validation of a regime-preserving bootstrap procedure for FX fair-value strategies."
 summary: "Two regime-aware bootstrap resamplers (Regime-Uniform and Regime-Markov) for FX fair-value strategies (BEER, FEER, PPP), validated against naive baselines on three currency pairs."
+repo: "https://github.com/DavidVossebuerger/MC-Regime"
+keyResult: "Regime-Markov cuts cross-pool Sharpe loss by 1.35x over Regime-Uniform and 4.59x over the naive IID baseline."
+papers: ["/papers/fx-bootstrap/"]
 editPost:
     URL: "https://github.com/DavidVossebuerger/MC-Regime"
     Text: "Source code"

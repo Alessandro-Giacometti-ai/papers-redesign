@@ -5,6 +5,11 @@ tags: ["FX", "ICT", "PO3", "backtesting", "reproducibility"]
 author: ["David Vossebürger"]
 description: "Reproducible, rule-based evaluation of PO3-inspired ICT strategies on weekly profile and daily swing timeframes."
 summary: "Reproducible, rule-based evaluation of PO3-inspired ICT strategies using weekly-profile and daily-swing frameworks."
+language: "English"
+ssrn: "6700099"
+alternate: "/papers/ict-rules-de/"
+alternateLabel: "Deutsche Originalversion"
+project: "/projects/po3-ict-backtesting/"
 editPost:
     URL: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6700099"
     Text: "SSRN 6700099"
